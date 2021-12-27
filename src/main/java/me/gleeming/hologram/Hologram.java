@@ -7,6 +7,7 @@ import me.gleeming.hologram.reflection.impl.RPacketDestroy;
 import me.gleeming.hologram.reflection.impl.RPacketMetadata;
 import me.gleeming.hologram.reflection.impl.RPacketSpawn;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -77,8 +78,8 @@ public class Hologram {
         Arrays.stream(newLines).forEach(line -> {
             REntityArmorStand armorStand = armorStandIterator.next();
 
-            armorStand.setCustomName(line);
-            armorStand.updateCustomName(line);
+            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', line));
+            armorStand.updateCustomName(ChatColor.translateAlternateColorCodes('&', line));
 
             RPacketMetadata packet = new RPacketMetadata(armorStand.getEntityId(), armorStand.getDataWatcher(), false);
             viewing.stream().map(Bukkit::getPlayer).forEach(packet::sendPacket);
