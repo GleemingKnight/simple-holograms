@@ -21,7 +21,10 @@ public class HologramListener implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        Hologram.getHolograms().forEach(hologram -> hologram.destroy(player));
+        Hologram.getHolograms().forEach(hologram -> {
+            hologram.destroy(player);
+            hologram.getCanSee().remove(player.getUniqueId());
+        });
     }
 
     @EventHandler
