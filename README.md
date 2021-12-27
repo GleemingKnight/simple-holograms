@@ -44,6 +44,8 @@ public class JoinListener implements Listener {
                 "Hello, " + player.getName(), ", and",
                 "welcome to our server!"
         );
+        
+        hologram.show(player);
     }
 }
 ```
