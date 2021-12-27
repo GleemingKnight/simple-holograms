@@ -131,7 +131,7 @@ public class Hologram {
      */
     public void create(Player player) {
         viewing.add(player.getUniqueId());
-        armorStands.forEach(armorStand -> new RPacketSpawn(armorStand.getArmorStand()).sendPacket(player));
+        armorStands.stream().filter(armorStand -> armorStand.getCustomName().length() > 0).forEach(armorStand -> new RPacketSpawn(armorStand.getArmorStand()).sendPacket(player));
     }
 
     /**
