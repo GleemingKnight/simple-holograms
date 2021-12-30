@@ -64,11 +64,6 @@ public class Hologram {
                         (armorStands.size() == 0 ? location : armorStands.get(armorStands.size() - 1).getLocation()).subtract(0, 0.22, 0)
                 );
 
-                armorStand.setCustomName("");
-                armorStand.setInvisible(true);
-                armorStand.setCustomNameVisible(true);
-                armorStand.setMarker(true);
-
                 armorStand.build();
                 armorStands.add(armorStand);
             }
@@ -77,11 +72,9 @@ public class Hologram {
         Iterator<REntityArmorStand> armorStandIterator = armorStands.iterator();
         Arrays.stream(newLines).forEach(line -> {
             REntityArmorStand armorStand = armorStandIterator.next();
-
-            armorStand.setCustomName(ChatColor.translateAlternateColorCodes('&', line));
             armorStand.updateCustomName(ChatColor.translateAlternateColorCodes('&', line));
 
-            RPacketMetadata packet = new RPacketMetadata(armorStand.getEntityId(), armorStand.getDataWatcher(), false);
+            RPacketMetadata packet = new RPacketMetadata(armorStand.getEntityId(), armorStand.getDataWatcher(), true);
             viewing.stream().map(Bukkit::getPlayer).forEach(packet::sendPacket);
         });
     }
@@ -148,6 +141,6 @@ public class Hologram {
      */
     public void delete() {
         holograms.remove(this);
-        viewing.stream().map(Bukkit::getPlayer).forEach(this::destroy);
+        new ArrayList<>(viewing).stream().map(Bukkit::getPlayer).forEach(this::destroy);
     }
 }

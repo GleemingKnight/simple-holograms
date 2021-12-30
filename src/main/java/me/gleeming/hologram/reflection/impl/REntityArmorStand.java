@@ -16,10 +16,10 @@ public class REntityArmorStand extends Reflection {
         this.location = location;
     }
 
-    private String customName;
-    private boolean customNameVisible;
-    private boolean invisible;
-    private boolean marker;
+    private String customName = "";
+    private boolean customNameVisible = true;
+    private boolean invisible = true;
+    private boolean marker = true;
 
     /**
      * Gets an armor stands entity id
@@ -45,6 +45,7 @@ public class REntityArmorStand extends Reflection {
      * Updates the custom name
      */
     public void updateCustomName(String name) {
+        customName = name;
         callMethod(armorStand, "setCustomName", name);
     }
 
