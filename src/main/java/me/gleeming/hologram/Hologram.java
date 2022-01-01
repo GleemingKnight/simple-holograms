@@ -5,7 +5,7 @@ import me.gleeming.hologram.listener.HologramListener;
 import me.gleeming.hologram.reflection.impl.REntityArmorStand;
 import me.gleeming.hologram.reflection.impl.RPacketDestroy;
 import me.gleeming.hologram.reflection.impl.RPacketMetadata;
-import me.gleeming.hologram.reflection.impl.RPacketSpawn;
+import me.gleeming.hologram.reflection.impl.RPacketSpawnLiving;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -87,7 +87,7 @@ public class Hologram {
         viewing.clear();
 
         Bukkit.getOnlinePlayers().stream()
-                .filter(player -> player.getLocation().distance(armorStands.get(0).getLocation()) <= VIEW_DISTANCE)
+                .filter(player -> player.getLocation().distance(location) <= VIEW_DISTANCE)
                 .forEach(this::create);
     }
 
@@ -106,7 +106,7 @@ public class Hologram {
      */
     public void show(Player player) {
         canSee.add(player.getUniqueId());
-        if(player.getLocation().distance(armorStands.get(0).getLocation()) <= VIEW_DISTANCE) create(player);
+        if(player.getLocation().distance(location) <= VIEW_DISTANCE) create(player);
     }
 
     /**
@@ -124,7 +124,9 @@ public class Hologram {
      */
     public void create(Player player) {
         viewing.add(player.getUniqueId());
-        armorStands.stream().filter(armorStand -> armorStand.getCustomName().length() > 0).forEach(armorStand -> new RPacketSpawn(armorStand.getArmorStand()).sendPacket(player));
+        armorStands.stream()
+                .filter(armorStand -> armorStand.getCustomName().length() > 0)
+                .forEach(armorStand -> new RPacketSpawnLiving(armorStand.getArmorStand()).sendPacket(player));
     }
 
     /**

@@ -5,9 +5,9 @@ import me.gleeming.hologram.reflection.Reflection;
 import org.bukkit.entity.Player;
 
 @AllArgsConstructor
-public class RPacketSpawn extends Reflection {
-
-    private final Object entityObject;
+public class RPacketAttach extends Reflection {
+    private final Object passenger;
+    private final Object vehicle;
 
     /**
      * Sends the packet to a player
@@ -18,9 +18,8 @@ public class RPacketSpawn extends Reflection {
         Object playerConnection = getField(craftPlayerHandle, "playerConnection");
 
         callMethod(playerConnection, "sendPacket", initialize(
-                getClass("net.minecraft.server." + Reflection.NMS_VERSION + ".PacketPlayOutSpawnEntity"),
-                entityObject, 2, 100
+                getClass("net.minecraft.server." + Reflection.NMS_VERSION + ".PacketPlayOutAttachEntity"),
+                0, passenger, vehicle
         ));
     }
-
 }

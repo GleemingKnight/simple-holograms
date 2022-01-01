@@ -74,6 +74,22 @@ public class Reflection {
      * @return Method Return
      */
     @SneakyThrows
+    public static Object callMethod(Class<?> object, String method, Object... params) {
+        List<Method> methodList = Arrays.stream(object.getDeclaredMethods())
+                .filter(m -> m.getName().equals(method))
+                .collect(Collectors.toList());
+
+        return methodList.get(0).invoke(object, params);
+    }
+
+
+    /**
+     * Calls a specified method
+     * @param object Object
+     * @param method Method
+     * @return Method Return
+     */
+    @SneakyThrows
     public static Object callMethod(Object object, String method, Class<?>[] classes, Object... params) {
         return object.getClass().getMethod(method, classes).invoke(object, params);
     }

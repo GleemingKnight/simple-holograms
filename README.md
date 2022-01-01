@@ -30,6 +30,10 @@ public class Plugin {
         // This will make a hologram that displays the online players and
         // updates every 20 ticks to every player that joins the server
         updatingHologram.showToAll();
+        
+        // You can also create floating items
+        // that are packet based so per player
+        ItemHologram itemHologram = new ItemHologram(Location, ItemStack).showToAll();
     }
 }
 
