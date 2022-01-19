@@ -82,40 +82,45 @@ public class Hologram {
     /**
      * Makes the armor stand visible to all players
      */
-    public void showToAll() {
+    public Hologram showToAll() {
         showToAll = true;
         viewing.clear();
 
         Bukkit.getOnlinePlayers().stream()
                 .filter(player -> player.getLocation().distance(location) <= VIEW_DISTANCE)
                 .forEach(this::create);
+
+        return this;
     }
 
     /**
      * Hides the armor stand from all players
      */
-    public void hideFromAll() {
+    public Hologram hideFromAll() {
         showToAll = false;
         viewing.stream().map(Bukkit::getPlayer).forEach(this::destroy);
         canSee.stream().map(Bukkit::getPlayer).forEach(this::create);
+        return this;
     }
 
     /**
      * Shows the armor stand to a player
      * @param player Player
      */
-    public void show(Player player) {
+    public Hologram show(Player player) {
         canSee.add(player.getUniqueId());
         if(player.getLocation().distance(location) <= VIEW_DISTANCE) create(player);
+        return this;
     }
 
     /**
      * Hides the armor stand from a player
      * @param player Player
      */
-    public void hide(Player player) {
+    public Hologram hide(Player player) {
         canSee.remove(player.getUniqueId());
         destroy(player);
+        return this;
     }
 
     /**
