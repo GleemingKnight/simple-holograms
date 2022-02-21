@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import java.util.*;
 
 /**
- * Simple one class hologram api using reflection
+ * Simple hologram api using reflection
  * @author github.com/GleemingKnight
  */
 @Getter
